@@ -1,0 +1,78 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<script>
+
+var persons = [];
+
+function addPerson(){
+  var nameBox = document.getElementById("name");
+  var name = nameBox.value;
+  persons.push(name);
+  document.getElementById("lista").innerHTML += "<li> "+name+"</li>";
+  nameBox.value = "";
+  nameBox.focus();
+}
+
+
+function calculate(){
+
+  document.getElementById("resultat").innerHTML = "";
+
+  var matches = [];
+  var other = persons.slice(0);
+  for (index = 0; index < persons.length; ++index) {
+      var person = persons[index];
+      var candidates = [];
+      for (j = 0; j < other.length; ++j) {
+        if(other[j] != person){
+          candidates.push(other[j]);
+        }
+      }
+      var match = candidates[getRandomInt(candidates.length)];
+      matches.push({first:person, second:match});
+      removeElement(other, match);
+  }
+
+  for (i = 0; i < matches.length; ++i) {
+    if(matches[i].second == undefined){
+      calculate();
+      return;
+    }
+  }
+
+  for (i = 0; i < matches.length; ++i) {
+    document.getElementById("resultat").innerHTML += "<li> "+matches[i].first + " och "+matches[i].second+"</li>";
+  }
+
+
+}
+
+function removeElement(array, element){
+  for(var i = array.length - 1; i >= 0; i--) {
+    if(array[i] === element) {
+      array.splice(i, 1);
+    }
+  }
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+
+</script>
+<input type="text" id="name"></input>
+<button OnClick="addPerson()">Add Person</button>
+<button Onclick="calculate()"> Calculate </button>
+
+<ul id="lista">
+</ul>
+
+<ul id="resultat">
+</ul>
+
+
+
+</html>
