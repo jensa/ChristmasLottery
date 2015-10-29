@@ -1,78 +1,28 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
+  <link href="christmas.css" rel="stylesheet" />
+  <script src="snowstorm-min.js"></script>
+  <script src="presentCalculator.js"></script>
 </head>
-<script>
+<body>
 
-var persons = [];
+<div class="bg">
+  <div class="centerer">
+    <div>
+    <input type="text" id="name" onkeypress="handleEnterKey(event)"></input>
+    <a href="#" class="button" OnClick="addPerson()">Lägg till person</a>
+    <div>
+    <a href="#" class="button" OnClick="calculate()">Vem får vad?</a>
+    <ul id="lista">
+    </ul>
 
-function addPerson(){
-  var nameBox = document.getElementById("name");
-  var name = nameBox.value;
-  persons.push(name);
-  document.getElementById("lista").innerHTML += "<li> "+name+"</li>";
-  nameBox.value = "";
-  nameBox.focus();
-}
-
-
-function calculate(){
-
-  document.getElementById("resultat").innerHTML = "";
-
-  var matches = [];
-  var other = persons.slice(0);
-  for (index = 0; index < persons.length; ++index) {
-      var person = persons[index];
-      var candidates = [];
-      for (j = 0; j < other.length; ++j) {
-        if(other[j] != person){
-          candidates.push(other[j]);
-        }
-      }
-      var match = candidates[getRandomInt(candidates.length)];
-      matches.push({first:person, second:match});
-      removeElement(other, match);
-  }
-
-  for (i = 0; i < matches.length; ++i) {
-    if(matches[i].second == undefined){
-      calculate();
-      return;
-    }
-  }
-
-  for (i = 0; i < matches.length; ++i) {
-    document.getElementById("resultat").innerHTML += "<li> "+matches[i].first + " och "+matches[i].second+"</li>";
-  }
+    <ul id="resultat">
+    </ul>
+  </div>
+</div>
 
 
-}
-
-function removeElement(array, element){
-  for(var i = array.length - 1; i >= 0; i--) {
-    if(array[i] === element) {
-      array.splice(i, 1);
-    }
-  }
-}
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
-
-</script>
-<input type="text" id="name"></input>
-<button OnClick="addPerson()">Add Person</button>
-<button Onclick="calculate()"> Calculate </button>
-
-<ul id="lista">
-</ul>
-
-<ul id="resultat">
-</ul>
-
-
-
+</body>
 </html>
