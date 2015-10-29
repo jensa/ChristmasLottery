@@ -1,4 +1,5 @@
 var persons = [];
+var idCount = 0;
 
 // http://stackoverflow.com/questions/19875633/how-to-pick-unique-pairs-from-a-single-list
 function handleEnterKey(key){
@@ -7,12 +8,21 @@ function handleEnterKey(key){
   }
 }
 function addPerson(){
+  var lista = document.getElementById("lista");
   var nameBox = document.getElementById("name");
   var name = nameBox.value;
   if(!name || name === "")
     return;
   persons.push(name);
-  document.getElementById("lista").innerHTML += "<li> "+name+"</li>";
+  var listElement = document.createElement("li")
+  listElement.value = name;
+  listElement.appendChild(document.createTextNode(name));
+  listElement.setAttribute("class", "clickableLi");
+  listElement.onclick = function(){
+    lista.removeChild(listElement);
+    removeElement(persons, name);
+  }
+  lista.appendChild(listElement);
   nameBox.value = "";
   nameBox.focus();
 }
