@@ -3,7 +3,7 @@ var idCount = 0;
 
 // http://stackoverflow.com/questions/19875633/how-to-pick-unique-pairs-from-a-single-list
 function handleEnterKey(key){
-  if(key.charCode==13){
+  if(key.charCode==13 || key.keyCode ==13){
     addPerson();
   }
 }
@@ -46,7 +46,7 @@ function calculate(){
     second:other[0]};
 
   for (i = 0; i < matches.length; ++i) {
-    document.getElementById("resultat").innerHTML += "<li> "+matches[i].first + " och "+matches[i].second+"</li>";
+    document.getElementById("resultat").innerHTML += "<li> "+matches[i].first + " ska ge till "+matches[i].second+"</li>";
   }
 
 
